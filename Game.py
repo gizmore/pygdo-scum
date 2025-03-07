@@ -11,6 +11,8 @@ class Game:
 
     MAX_PLAYERS = 8
 
+    GAMES: dict[str, 'Game'] = {}
+
     _channel: GDO_Channel
     _players: list[GDO_User]
     _passed: list[GDO_User]
@@ -28,10 +30,13 @@ class Game:
 
     @classmethod
     def instance(cls, channel: GDO_Channel):
+        if game := cls.GAMES.get(channel.get_id()):
+            return game
         if game := Cache.get('scum_game', channel.get_id()):
             return game
         game = Game(channel)
         Cache.set('scum_game', channel.get_id(), game)
+        cls.GAMES[channel.get_id()] = game
         return game
 
     def reset(self):
