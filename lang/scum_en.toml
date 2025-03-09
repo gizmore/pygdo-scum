@@ -1,6 +1,7 @@
 module_scum = "Scum"
 
-msg_scum_next = "It is %s's turn. Cards on table: %s."
+msg_scum_status_next = "It is %s's turn. Cards on table: %s."
+msg_scum_status_fresh = "It is %s's turn. They may come out fresh."
 
 #########
 # Cards #
@@ -47,9 +48,13 @@ msg_scum_passed = "%s passes."
 #########
 mt_scum_reset = "Reset Scum Game"
 md_scum_reset = "Cancel the current Scum Game."
+err_scum_reset_timeout = "Please wait %s and try again to reset the game."
+msg_scum_reset = "The running scum game has been aborted."
 
 #########
 # Start #
 #########
 mt_scum_start = "Start Scum Game"
 md_scum_start = "Start the scum game with currently joined players."
+err_at_least_2_players = "There have to be at least 2 players."
+msg_scum_started = "The game has started with %s."

@@ -8,13 +8,16 @@ class init(Method):
     def gdo_trigger(self) -> str:
         return 'scum.init'
 
+    def gdo_in_private(self) -> bool:
+        return False
+
     def gdo_parameters(self) -> [GDT]:
         return [
         ]
 
     def gdo_execute(self) -> GDT:
         game = Game.instance(self._env_channel)
-        if game.is_inited():
+        if game._inited:
             return self.err('err_scum_running')
         game.init()
         game.join(self._env_user)

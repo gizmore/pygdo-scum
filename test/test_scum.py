@@ -25,11 +25,11 @@ class ScumTest(GDOTestCase):
         peter = cli_user('peter')
         gizmore = cli_gizmore()
         out = cli_plug(gizmore, '$scum.init')
-        self.assertIn('ew game', out, 'Cannot init scum game.')
-        out = cli_plug(peter, '$scum join')
-        self.assertIn('joined', out, 'Cannot join scum game.')
-        out = cli_plug(gizmore, '$scum start')
-        pass
+        self.assertIn('has been initiated', out, 'Cannot init scum game.')
+        out = cli_plug(peter, '$scum.join')
+        self.assertIn('ou joined', out, 'Cannot join scum game.')
+        out = cli_plug(gizmore, '$scum.start')
+        self.assertIn('started', out, 'Cannot start scum game.')
 
 
 if __name__ == '__main__':

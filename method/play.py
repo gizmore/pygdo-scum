@@ -9,6 +9,9 @@ class play(Method):
     def gdo_trigger(self) -> str:
         return 'scum'
 
+    def gdo_in_private(self) -> bool:
+        return False
+
     def gdo_parameters(self) -> [GDT]:
         return [
             GDT_RestOfText('cards').not_null(),

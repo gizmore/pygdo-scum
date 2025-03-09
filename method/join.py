@@ -8,6 +8,9 @@ class join(Method):
     def gdo_trigger(self) -> str:
         return 'scum.join'
 
+    def gdo_in_private(self) -> bool:
+        return False
+
     def gdo_execute(self) -> GDT:
         game = Game.instance(self._env_channel)
         if not game._inited:

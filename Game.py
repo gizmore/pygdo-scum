@@ -10,8 +10,6 @@ from gdo.scum.module_scum import module_scum
 
 class Game:
 
-    MAX_PLAYERS = 8
-
     GAMES: dict[str, 'Game'] = {}
 
     _channel: GDO_Channel
@@ -25,19 +23,18 @@ class Game:
     _started: bool
     _current_player: int
     _last_action_time: float
+    _max_players: int
 
     def __init__(self, channel: GDO_Channel):
         self._channel = channel
+        self._max_players = module_scum.instance().cfg_max_players()
         self.reset()
 
     @classmethod
     def instance(cls, channel: GDO_Channel):
         if game := cls.GAMES.get(channel.get_id()):
             return game
-        if game := Cache.get('scum_game', channel.get_id()):
-            return game
         game = Game(channel)
-        Cache.set('scum_game', channel.get_id(), game)
         cls.GAMES[channel.get_id()] = game
         return game
 
@@ -63,7 +60,7 @@ class Game:
         self._inited = True
         return self
 
-    def start(self):
+    async def start(self):
         self._started = True
         types = ['♦', '♥', '♠', '♣'] * ((len(self._players) - 1) // 4 + 1)
         self._cards = []
@@ -74,7 +71,7 @@ class Game:
             for player in self._players:
                 self._hands[player.get_id()].append(self._cards.pop())
         for player in self._players:
-            player.send('msg_scum_your_cards', (self.render_cards(self._hands[player.get_id()]),), True)
+            await player.send('msg_scum_your_cards', (self.render_cards(self._hands[player.get_id()]),), True)
         self.next_player()
         return self
 
@@ -97,7 +94,7 @@ class Game:
             if len(self._finished) == 1:
                 player.increase_setting('scum_won', 1)
                 player.increase_setting('scum_points', len(self._players))
-                module_scum.instance().increase_config_val('scum_games')
+                module_scum.instance().increase_config_val('scum_games', 1)
         self.next_player()
         return self
 
@@ -106,12 +103,29 @@ class Game:
         self.next_player()
         return self
 
+    ##########
+    # Helper #
+    ##########
+
+    async def send_status(self):
+        if self._table:
+            await self._channel.send(t(''))
+        else:
+            await self._channel.send(t(''))
+
     def next_player(self):
         self._current_player = (self._current_player + 1) % len(self._players)
         return self
 
     def have_all_passed(self) -> bool:
         return len(self._passed) == len(self._players)
+
+    def is_full(self) -> bool:
+        return len(self._players) == self._max_players
+
+    ##########
+    # Render #
+    ##########
 
     def render_players(self) -> list[str]:
         return [user.render_name() for user in self._players]
