@@ -16,6 +16,8 @@ class ScumTest(GDOTestCase):
         loader.load_modules_db(True)
         reinstall_module('scum')
         loader.init_modules(True, True)
+        Application.init_cli()
+        loader.init_cli()
         WebPlug.COOKIES = {}
 
     def test_00_play_scum(self):
