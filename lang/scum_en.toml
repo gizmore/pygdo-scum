@@ -1,1 +1,55 @@
 module_scum = "Scum"
+
+msg_scum_next = "It is %s's turn. Cards on table: %s."
+
+#########
+# Cards #
+#########
+mt_scum_cards = "Your cards"
+md_scum_cards = "Show your cards in the current scum game."
+msg_scum_your_cards = "Your cards: %s"
+
+########
+# Init #
+########
+mt_scum_init = "Init Game"
+md_scum_init = "Initiate a game of scum."
+err_scum_running = "A game of scum is already running."
+msg_scum_inited = "A game of scum has been initiated and you joined it. Others may type $scum.join to."
+
+########
+# Join #
+########
+mt_scum_join = "Join the Scum"
+md_scum_join = "Join a freshly inited game of scum."
+err_scum_no_game = "There is no scum game initiated. Type $scum.init to do so."
+err_scum_already_started = "There is already a game running here."
+err_scum_already_in_game = "You are already in the game."
+err_game_full = "The game is full. Type $scum.start now."
+msg_scum_joined = "You joined the scum."
+
+########
+# Play #
+########
+mt_scum_play = "Play cards"
+md_scum_play = "Make a move in your current scum game."
+err_scum_player_not_in_game = "You are not in this game."
+err_scum_not_started = "There is no scum game running."
+err_scum_not_your_turn = "It is not your turn."
+err_scum_need_same_cards = "You need to play the same number of cards."
+err_scum_not_right_cards = "You do not have the right cards."
+msg_scum_played_cards = "%s plays %s and has %d cards left."
+msg_scum_all_passed = "%s wins this round and comes out fresh."
+msg_scum_passed = "%s passes."
+
+#########
+# Reset #
+#########
+mt_scum_reset = "Reset Scum Game"
+md_scum_reset = "Cancel the current Scum Game."
+
+#########
+# Start #
+#########
+mt_scum_start = "Start Scum Game"
+md_scum_start = "Start the scum game with currently joined players."

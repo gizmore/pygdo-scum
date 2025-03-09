@@ -2,6 +2,7 @@ import time
 from random import shuffle
 
 from gdo.base.Cache import Cache
+from gdo.base.Trans import t
 from gdo.core.GDO_Channel import GDO_Channel
 from gdo.core.GDO_User import GDO_User
 from gdo.scum.module_scum import module_scum
@@ -19,6 +20,7 @@ class Game:
     _finished: list[GDO_User]
     _cards: list[str]
     _hands: dict[str, list[str]]
+    _table: list[str]
     _inited: bool
     _started: bool
     _current_player: int
@@ -45,6 +47,7 @@ class Game:
         self._finished = []
         self._cards = []
         self._hands = {}
+        self._table = []
         self._inited = False
         self._started = False
         self._current_player = -1
@@ -70,6 +73,8 @@ class Game:
         for _ in range(8):
             for player in self._players:
                 self._hands[player.get_id()].append(self._cards.pop())
+        for player in self._players:
+            player.send('msg_scum_your_cards', (self.render_cards(self._hands[player.get_id()]),), True)
         self.next_player()
         return self
 
@@ -110,3 +115,12 @@ class Game:
 
     def render_players(self) -> list[str]:
         return [user.render_name() for user in self._players]
+
+    def render_cards(self, cards: list[str]) -> str:
+        return ", ".join(cards)
+
+    def render_current_state(self) -> str:
+        if self._table:
+            return t('msg_scum_state_table', (self.current_player().render_name(), self.render_cards(self._table)))
+        else:
+            return t('msg_scum_state_fresh', (self.current_player().render_name(), self.render_cards(self._table)))

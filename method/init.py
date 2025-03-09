@@ -17,4 +17,5 @@ class init(Method):
         if game.is_inited():
             return self.err('err_scum_running')
         game.init()
+        game.join(self._env_user)
         return self.msg('msg_scum_inited')

@@ -15,14 +15,16 @@ class play(Method):
         ]
 
     def gdo_execute(self) -> GDT:
-        if self.param_val('cards')[0] == 'p':
-            return self.scum_pass()
         game = Game.instance(self._env_channel)
+        if self.param_val('cards')[0] == 'p':
+            return self.scum_pass(game)
         user = self._env_user
         if user not in game._players:
             return self.err('err_scum_player_not_in_game')
         if not game._started:
             return self.err('err_scum_not_started')
+        if game.current_player() != self._env_user:
+            return self.err('err_scum_not_your_turn')
         hand = game._hands[user.get_id()]
         cards = self.param_val('cards').split(' ')
         c = cards[0]
@@ -35,8 +37,7 @@ class play(Method):
         self.msg('msg_scum_played_cards', (user.render_name(), game.render_cards(cards), game.current_player().render_name()))
         return self.empty()
 
-    def scum_pass(self):
-        game = Game.instance(self._env_channel)
+    def scum_pass(self, game: Game):
         game.passed(self._env_user)
         if game.have_all_passed():
             return self.msg('msg_scum_all_passed', (self._env_user.render_name(),))
