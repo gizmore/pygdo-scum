@@ -1,6 +1,7 @@
 import time
 from random import shuffle
 
+from gdo.base.Application import Application
 from gdo.base.Cache import Cache
 from gdo.base.Trans import t
 from gdo.core.GDO_Channel import GDO_Channel
@@ -31,7 +32,7 @@ class Game:
         self.reset()
 
     @classmethod
-    def instance(cls, channel: GDO_Channel):
+    def instance(cls, channel: GDO_Channel) -> 'Game':
         if game := cls.GAMES.get(channel.get_id()):
             return game
         game = Game(channel)
@@ -58,6 +59,7 @@ class Game:
 
     def init(self):
         self._inited = True
+        self._last_action_time = Application.TIME
         return self
 
     async def start(self):
@@ -78,6 +80,7 @@ class Game:
     def join(self, player: GDO_User):
         self._players.append(player)
         self._hands[player.get_id()] = []
+        self._last_action_time = Application.TIME
         return self
 
     def over(self):
@@ -115,6 +118,7 @@ class Game:
 
     def next_player(self):
         self._current_player = (self._current_player + 1) % len(self._players)
+        self._last_action_time = Application.TIME
         return self
 
     def have_all_passed(self) -> bool:
@@ -138,3 +142,4 @@ class Game:
             return t('msg_scum_state_table', (self.current_player().render_name(), self.render_cards(self._table)))
         else:
             return t('msg_scum_state_fresh', (self.current_player().render_name(), self.render_cards(self._table)))
+        
