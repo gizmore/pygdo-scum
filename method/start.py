@@ -22,5 +22,5 @@ class start(Method):
             return self.err('err_at_least_2_players')
         await game.start()
         self.msg('msg_scum_started', (Arrays.human_join(game.render_players()),))
-        game.send_status()
+        await game.send_status()
         return self.empty()

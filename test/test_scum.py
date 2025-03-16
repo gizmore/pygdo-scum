@@ -30,6 +30,7 @@ class ScumTest(GDOTestCase):
         self.assertIn('ou joined', out, 'Cannot join scum game.')
         out = cli_plug(gizmore, '$scum.start')
         self.assertIn('started', out, 'Cannot start scum game.')
+        self.assertIn('our cards', out, 'Cannot start with scum game cards.')
 
 
 if __name__ == '__main__':
