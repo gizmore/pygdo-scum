@@ -13,4 +13,4 @@ class cards(Method):
 
     def gdo_execute(self) -> GDT:
         game = Game.instance(self._env_channel)
-        return self.msg('msg_scum_your_cards', (game.render_cards(game._hand[self._env_user.get_id()]),))
+        return self.msg('msg_scum_your_cards', (game.render_cards(game._hands[self._env_user.get_id()]),))

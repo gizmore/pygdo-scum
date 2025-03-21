@@ -1,7 +1,7 @@
 module_scum = "Scum"
 
-msg_scum_status_next = "It is %s's turn. Cards on table: %s."
-msg_scum_status_fresh = "It is %s's turn. They may come out fresh."
+msg_scum_state_table = "It is %s's turn. Cards on table: %s."
+msg_scum_state_fresh = "It is %s's turn, who may come out fresh."
 
 #########
 # Cards #
@@ -37,11 +37,17 @@ md_scum_play = "Make a move in your current scum game."
 err_scum_player_not_in_game = "You are not in this game."
 err_scum_not_started = "There is no scum game running."
 err_scum_not_your_turn = "It is not your turn."
-err_scum_need_same_cards = "You need to play the same number of cards."
+err_scum_need_same_cards = "You need to play the same type of cards."
+err_scum_need_amt_cards = "You need to play the same number of cards."
 err_scum_not_right_cards = "You do not have the right cards."
-msg_scum_played_cards = "%s plays %s and has %d cards left."
-msg_scum_all_passed = "%s wins this round and comes out fresh."
-msg_scum_passed = "%s passes."
+err_scum_need_higher_cards = "You need to play higher cards than %s."
+msg_scum_wins_round = "%s plays %s and wins this round. %s"
+msg_scum_played_cards_finished = "%s plays %s and finishes with rank %s (%d points). %s"
+msg_scum_played_cards = "%s plays %s and has %d cards left. %s"
+msg_scum_all_passed = "%s passes. %s wins this round. %s"
+msg_scum_passed = "%s passes. %s"
+msg_scum_game_over = "The game is over."
+msg_scum_game_over_player = "%s got place %d (%d Points). Cards: %s"
 
 #########
 # Reset #
@@ -57,4 +63,4 @@ msg_scum_reset = "The running scum game has been aborted."
 mt_scum_start = "Start Scum Game"
 md_scum_start = "Start the scum game with currently joined players."
 err_at_least_2_players = "There have to be at least 2 players."
-msg_scum_started = "The game has started with %s."
+msg_scum_started = "The game has started with %s. %s"
