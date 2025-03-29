@@ -71,6 +71,9 @@ class ScumTest(GDOTestCase):
         self.assertIn('peter{1} passes', out, 'peter cannot pass.')
         out = cli_plug(gizmore, '$scum Q')
         self.assertIn('and finishes with rank', out, 'gizmore cannot play Q.')
+        out = cli_plug(gizmore, '$scum.stats')
+        self.assertIn('Scum Stats: giz', out, 'gizmore cannot play Q.')
+
 
 
 if __name__ == '__main__':

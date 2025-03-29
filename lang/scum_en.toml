@@ -64,3 +64,10 @@ mt_scum_start = "Start Scum Game"
 md_scum_start = "Start the scum game with currently joined players."
 err_at_least_2_players = "There have to be at least 2 players."
 msg_scum_started = "The game has started with %s. %s"
+
+#########
+# Stats #
+#########
+mt_scum_stats = "Scum Stats"
+md_scum_stats = "Print the highscores for the scum game."
+scum_stat = "%s(%s pts)"
