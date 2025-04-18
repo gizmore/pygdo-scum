@@ -5,7 +5,7 @@ from gdo.scum.Game import Game
 
 class init(Method):
 
-    def gdo_trigger(self) -> str:
+    def gdo_trigger(cls) -> str:
         return 'scum.init'
 
     def gdo_in_private(self) -> bool:

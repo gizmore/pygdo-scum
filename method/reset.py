@@ -6,7 +6,7 @@ from gdo.scum.Game import Game
 
 class reset(Method):
 
-    def gdo_trigger(self) -> str:
+    def gdo_trigger(cls) -> str:
         return 'scum.reset'
 
     def gdo_in_private(self) -> bool:

@@ -6,7 +6,8 @@ from gdo.scum.Game import Game
 
 class play(Method):
 
-    def gdo_trigger(self) -> str:
+    @classmethod
+    def gdo_trigger(cls) -> str:
         return 'scum'
 
     def gdo_in_private(self) -> bool:
