@@ -9,6 +9,7 @@ from gdo.table.MethodQueryTable import MethodQueryTable
 
 class stats(MethodQueryTable):
 
+    @classmethod
     def gdo_trigger(cls) -> str:
         return "scum.stats"
 

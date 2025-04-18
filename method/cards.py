@@ -5,6 +5,7 @@ from gdo.scum.Game import Game
 
 class cards(Method):
 
+    @classmethod
     def gdo_trigger(cls) -> str:
         return 'scum.cards'
 
