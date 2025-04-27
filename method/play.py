@@ -30,7 +30,7 @@ class play(Method):
         if game.current_player() != self._env_user:
             return self.err('err_scum_not_your_turn')
         hand = game._hands[user.get_id()]
-        cards = self.param_val('cards').split(' ')
+        cards = self.param_value('cards').split(' ')
         c = cards[0]
         cards2 = []
         for card in cards:

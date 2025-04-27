@@ -72,7 +72,7 @@ class ScumTest(GDOTestCase):
         out = cli_plug(gizmore, '$scum Q')
         self.assertIn('and finishes with rank', out, 'gizmore cannot play Q.')
         out = cli_plug(gizmore, '$scum.stats')
-        self.assertIn('Scum Stats: giz', out, 'gizmore cannot play Q.')
+        self.assertIn('Scum Stats: giz', out, 'gizmore cannot show stats.')
 
 
 
