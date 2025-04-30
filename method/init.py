@@ -12,7 +12,7 @@ class init(Method):
     def gdo_in_private(self) -> bool:
         return False
 
-    def gdo_parameters(self) -> [GDT]:
+    def gdo_parameters(self) -> list[GDT]:
         return [
         ]
 
