@@ -3,6 +3,10 @@ module_scum = "Scum"
 msg_scum_state_table = "It is %s's turn. Cards on table: %s."
 msg_scum_state_fresh = "It is %s's turn, who may come out fresh."
 
+scum_played = "Scum games played"
+scum_won = "Scum games won"
+scum_points = "Scum total points"
+
 #########
 # Cards #
 #########
