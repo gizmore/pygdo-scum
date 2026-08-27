@@ -50,7 +50,7 @@ class play(Method):
                 return self.err('err_scum_need_higher_cards', (game.render_cards(game._table),))
             if len(cards2) != len(game._table):
                 return self.err('err_scum_need_amt_cards')
-        game.play(user, cards2)
+        await game.play(user, cards2)
         if cards2[0][1] == 'A':
             self.msg('msg_scum_wins_round', (user.render_name(), game.render_cards(cards2), game.render_current_state()))
         elif user in game._finished:

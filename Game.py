@@ -98,7 +98,7 @@ class Game:
         for user in self._finished:
             await self._channel.send(t('msg_scum_game_over_player', (user.render_name(), self.get_rank(user), self.get_points(user), self.render_cards(self._hands_start[user.get_id()]))))
 
-    def play(self, player: GDO_User, cards: list[str]):
+    async def play(self, player: GDO_User, cards: list[str]):
         self._last_action_time = time.time()
         self._passed.clear()
         hand = self._hands[player.get_id()]
@@ -112,7 +112,7 @@ class Game:
             self._finished.append(player)
             if len(self._finished) == 1:
                 player.increase_setting('scum_won', 1)
-                module_scum.instance().increase_config_val('scum_games', 1)
+                await module_scum.instance().increase_config_val('scum_games', 1)
             player.increase_setting('scum_points', self.get_points(player))
             if len(self._players) == 1:
                 player = self._players[0]
