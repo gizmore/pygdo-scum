@@ -8,7 +8,14 @@ class play(Method):
 
     @classmethod
     def gdo_trigger(cls) -> str:
-        return 'scum'
+        return 'scum.play'
+
+    @classmethod
+    def gdo_trig(cls) -> str:
+        return 'scp'
+
+    def gdo_method_hidden(self) -> bool:
+        return True
 
     def gdo_in_private(self) -> bool:
         return False

@@ -9,6 +9,9 @@ class init(Method):
     def gdo_trigger(cls) -> str:
         return 'scum.init'
 
+    def gdo_method_hidden(self) -> bool:
+        return True
+
     def gdo_in_private(self) -> bool:
         return False
 

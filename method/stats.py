@@ -13,6 +13,9 @@ class stats(MethodQueryTable):
     def gdo_trigger(cls) -> str:
         return "scum.stats"
 
+    def gdo_method_hidden(self) -> bool:
+        return True
+
     def gdo_table_query(self) -> Query:
         return (GDO_UserSetting.table().
                 select('uset_user_t.*').

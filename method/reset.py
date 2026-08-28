@@ -10,6 +10,9 @@ class reset(Method):
     def gdo_trigger(cls) -> str:
         return 'scum.reset'
 
+    def gdo_method_hidden(self) -> bool:
+        return True
+
     def gdo_in_private(self) -> bool:
         return False
 
