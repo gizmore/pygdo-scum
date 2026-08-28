@@ -8,10 +8,12 @@ from gdo.scum.method.cards import cards
 from gdo.scum.method.init import init
 from gdo.scum.method.join import join
 from gdo.scum.method.play import play
+from gdo.scum.method.pass_ import pass_
 from gdo.scum.method.reset import reset
 from gdo.scum.method.scum import scum
 from gdo.scum.method.start import start
 from gdo.scum.method.stats import stats
+from gdo.scum.method.table import table
 from gdotest.TestUtil import reinstall_module, WebPlug, GDOTestCase, cli_plug, cli_gizmore, cli_user
 
 
@@ -44,49 +46,51 @@ class ScumTest(GDOTestCase):
         self.assertIn('come out fresh', out, 'Cannot get start state msg.')
 
         out = cli_plug(gizmore, '$scum.play 9')
-        self.assertIn('peter{1}\'s turn', out, 'gizmore cannot play 9.')
+        self.assertIn(peter.render_name(), out, 'gizmore cannot play 9.')
+        out = cli_plug(gizmore, '$scum.table')
+        self.assertIn('Cards on table', out, 'Cannot show the Scum table.')
         out = cli_plug(peter, '$scum.play 9')
         self.assertIn('higher cards than', out, 'peter can play low cards.')
         out = cli_plug(peter, '$scum.play 10')
-        self.assertIn('gizmore{1}\'s turn', out, 'peter cannot play 10.')
+        self.assertIn(gizmore.render_name(), out, 'peter cannot play 10.')
         out = cli_plug(gizmore, '$scum.play K K')
         self.assertIn('same number of cards', out, 'gizmore can play K K.')
         out = cli_plug(gizmore, '$scum.play A')
         self.assertIn('wins this round', out, 'gizmore cannot play A.')
         out = cli_plug(gizmore, '$scum.play K K')
-        self.assertIn('gizmore{1} plays', out, 'gizmore cannot play K K.')
-        out = cli_plug(peter, '$scum.play pass')
-        self.assertIn('peter{1} passes', out, 'peter cannot pass.')
-        out = cli_plug(gizmore, '$scum.play pass')
-        self.assertIn('gizmore{1} passes', out, 'all cannot pass.')
+        self.assertIn(f'{gizmore.render_name()} plays', out, 'gizmore cannot play K K.')
+        out = cli_plug(peter, '$scum.pass')
+        self.assertIn(f'{peter.render_name()} passes', out, 'peter cannot pass.')
+        out = cli_plug(gizmore, '$scum.pass')
+        self.assertIn(f'{gizmore.render_name()} passes', out, 'all cannot pass.')
         out = cli_plug(peter, '$scum.play 10')
         self.assertIn('not have the right cards', out, 'peter can play 10.')
         out = cli_plug(peter, '$scum.play 7')
         self.assertIn('plays', out, 'peter cannot play 7.')
         out = cli_plug(gizmore, '$scum.play 8')
-        self.assertIn('gizmore{1} plays', out, 'gizmore cannot play 8.')
+        self.assertIn(f'{gizmore.render_name()} plays', out, 'gizmore cannot play 8.')
         out = cli_plug(gizmore, '$scum.cards')
         self.assertIn('our cards', out, 'gizmore cannot see cards.')
-        out = cli_plug(peter, '$scum.play pass')
-        self.assertIn('peter{1} passes', out, 'peter cannot pass.')
+        out = cli_plug(peter, '$scum.pass')
+        self.assertIn(f'{peter.render_name()} passes', out, 'peter cannot pass.')
         out = cli_plug(gizmore, '$scum.play 10')
-        self.assertIn('gizmore{1} plays', out, 'gizmore cannot play 10.')
-        out = cli_plug(peter, '$scum.play pass')
-        self.assertIn('peter{1} passes', out, 'peter cannot pass.')
+        self.assertIn(f'{gizmore.render_name()} plays', out, 'gizmore cannot play 10.')
+        out = cli_plug(peter, '$scum.pass')
+        self.assertIn(f'{peter.render_name()} passes', out, 'peter cannot pass.')
         out = cli_plug(gizmore, '$scum.play J')
-        self.assertIn('gizmore{1} plays', out, 'gizmore cannot play J.')
-        out = cli_plug(peter, '$scum.play pass')
-        self.assertIn('peter{1} passes', out, 'peter cannot pass.')
+        self.assertIn(f'{gizmore.render_name()} plays', out, 'gizmore cannot play J.')
+        out = cli_plug(peter, '$scum.pass')
+        self.assertIn(f'{peter.render_name()} passes', out, 'peter cannot pass.')
         out = cli_plug(gizmore, '$scum.play Q')
         self.assertIn('and finishes with rank', out, 'gizmore cannot play Q.')
         out = cli_plug(gizmore, '$scum.stats')
-        self.assertIn('Scum Stats: giz', out, 'gizmore cannot show stats.')
+        self.assertIn('Scum Stats', out, 'gizmore cannot show stats.')
 
     def test_01_command_entrypoint_hides_game_commands(self):
         self.assertEqual('scum', scum.gdo_trigger())
         self.assertEqual('scp', play.gdo_trig())
         self.assertTrue(all(command().gdo_method_hidden()
-                            for command in (cards, init, join, play, reset, start, stats)))
+                            for command in (cards, init, join, pass_, play, reset, start, stats, table)))
 
 
 

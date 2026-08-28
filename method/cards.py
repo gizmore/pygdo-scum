@@ -15,6 +15,10 @@ class cards(Method):
     def gdo_in_private(self) -> bool:
         return False
 
-    def gdo_execute(self) -> GDT:
+    async def gdo_execute(self) -> GDT:
         game = Game.instance(self._env_channel)
-        return self.msg('msg_scum_your_cards', (game.render_cards(game._hands[self._env_user.get_id()]),))
+        # A hand is secret game state. Deliver it through the connector's
+        # private-user path (Discord DM, IRC query, TCP client, …), never the
+        # table's channel.
+        await self._env_user.send('msg_scum_your_cards', (game.render_cards(game._hands[self._env_user.get_id()]),))
+        return self.empty()
