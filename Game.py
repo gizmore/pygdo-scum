@@ -25,6 +25,7 @@ class Game:
     _inited: bool
     _started: bool
     _current_player: int
+    _last_player: GDO_User | None
     _last_action_time: float
     _max_players: int
     _num_players: int
@@ -53,6 +54,7 @@ class Game:
         self._inited = False
         self._started = False
         self._current_player = -1
+        self._last_player = None
         self._last_action_time = 0
         self._num_players = 0
 
@@ -101,6 +103,7 @@ class Game:
     async def play(self, player: GDO_User, cards: list[str]):
         self._last_action_time = time.time()
         self._passed.clear()
+        self._last_player = player
         hand = self._hands[player.get_id()]
         for c in cards:
             for cc in hand:
@@ -129,11 +132,23 @@ class Game:
         self.next_player()
         return self
 
-    def all_passed(self) -> bool:
-        if len(self._players) == len(self._passed):
+    def all_passed(self) -> GDO_User | None:
+        # The player who laid the table does not need to pass their own
+        # cards. Once every *other* remaining player passed, that player
+        # immediately wins the trick and opens a fresh table.
+        if (self._last_player in self._players and
+                len(self._passed) >= len(self._players) - 1):
+            winner = self._last_player
             self._table.clear()
-            return True
-        return False
+            self._passed.clear()
+            # The player who made the last valid play leads the fresh trick.
+            # ``passed()`` has already advanced the cursor past the final
+            # passer, so using ``current_player()`` here incorrectly awarded
+            # the round to the next player.
+            if winner in self._players:
+                self._current_player = self._players.index(winner)
+                return winner
+        return None
 
     ##########
     # Helper #

@@ -70,6 +70,6 @@ class play(Method):
 
     def scum_pass(self, game: Game):
         game.passed(self._env_user)
-        if game.all_passed():
-            return self.msg('msg_scum_all_passed', (self._env_user.render_name(), game.current_player().render_name(), game.render_current_state()))
+        if winner := game.all_passed():
+            return self.msg('msg_scum_all_passed', (self._env_user.render_name(), winner.render_name(), game.render_current_state()))
         return self.msg('msg_scum_passed', (self._env_user.render_name(), game.render_current_state()))

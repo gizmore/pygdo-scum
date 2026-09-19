@@ -20,5 +20,16 @@ class cards(Method):
         # A hand is secret game state. Deliver it through the connector's
         # private-user path (Discord DM, IRC query, TCP client, …), never the
         # table's channel.
-        await self._env_user.send('msg_scum_your_cards', (game.render_cards(game._hands[self._env_user.get_id()]),))
+        # The game is keyed by the effective account, but a linked account
+        # (for example Gizmore on IRC) must receive its secret hand through
+        # the connector identity which actually issued this command.
+        reply_to = self._env_reply_to or self._env_user
+        # ``notice_enabled`` is the user's private-delivery preference.  Pass
+        # the intent through GDO_User.send(); non-IRC connectors simply keep
+        # their normal private-message transport.
+        await reply_to.send(
+            'msg_scum_your_cards',
+            (game.render_cards(game._hands[self._env_user.get_id()]),),
+            notice=True,
+        )
         return self.empty()
