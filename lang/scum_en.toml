@@ -1,5 +1,5 @@
 module_scum = "Scum"
-msg_scum_commands = "Scum commands: $scum.init, $scum.join, $scum.start, $scum.cards, $scum.table, $scum.play <cards>, $scum.pass, $scum.reset, $scum.stats."
+msg_scum_commands = "Scum commands: $scum.init, $scum.join, $scum.start, $scum.cards, $scum.table, $scum.play <cards>, $scum.pass, $scum.reset, $scum.stats. Rules: https://en.wikipedia.org/wiki/President_(card_game)"
 
 msg_scum_state_table = "It is %s's turn. Cards on table: %s."
 msg_scum_state_fresh = "It is %s's turn, who may come out fresh."

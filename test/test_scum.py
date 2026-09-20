@@ -34,6 +34,8 @@ class ScumTest(GDOTestCase):
         random.seed(1337)
         peter = cli_user('peter')
         gizmore = cli_gizmore()
+        out = cli_plug(gizmore, '$scum')
+        self.assertIn('https://en.wikipedia.org/wiki/President_(card_game)', out)
         out = cli_plug(gizmore, '$scum.init')
         self.assertIn('has been initiated', out, 'Cannot init scum game.')
         out = cli_plug(gizmore, '$scum.start')
