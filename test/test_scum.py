@@ -38,6 +38,7 @@ class ScumTest(GDOTestCase):
         self.assertIn('https://en.wikipedia.org/wiki/President_(card_game)', out)
         out = cli_plug(gizmore, '$scum.init')
         self.assertIn('has been initiated', out, 'Cannot init scum game.')
+        self.assertIn('Others may type $scum.join too.', out)
         out = cli_plug(gizmore, '$scum.start')
         self.assertIn('at least 2 players.', out, 'Can start single player.')
         out = cli_plug(peter, '$scum.join')

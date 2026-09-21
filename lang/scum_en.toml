@@ -22,7 +22,7 @@ msg_scum_your_cards = "Your cards: %s"
 mt_scum_init = "Init Game"
 md_scum_init = "Initiate a game of scum."
 err_scum_running = "A game of scum is already running."
-msg_scum_inited = "A game of scum has been initiated and you joined it. Others may type $scum.join to."
+msg_scum_inited = "A game of scum has been initiated and you joined it. Others may type $scum.join too."
 
 ########
 # Join #
